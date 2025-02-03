@@ -1,17 +1,31 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 import { Questionnaire } from './questionnaire.entity';
+import { Answer } from 'src/answer/entities/answer.entity';
 
-@Entity()
+@Entity('question')
 export class Question {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions)
-  questionnaire: Questionnaire;
-
-  @Column()
+  @Column({ type: 'text' })
   question: string;
 
-  @Column()
+  @Column({ type: 'boolean' })
   answer: boolean;
+
+  @ManyToOne(() => Questionnaire, (questionnaire) => questionnaire.questions, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'questionnaire_id' })
+  questionnaireId: Questionnaire;
+
+  @OneToMany(() => Answer, (answer) => answer.question)
+  answers: Answer[];
 }

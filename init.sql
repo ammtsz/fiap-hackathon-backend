@@ -221,14 +221,15 @@ INSERT INTO student (user_id, grade_id, class_id, year_id) VALUES
 
 INSERT INTO questionnaire (title, year_id, grade_id, subject_id, author_id, content, questions_amount) VALUES
 ('Teste de Geometria', '2025', '8EF', 'MAT', 1, 'Math questions content...', 4),
-('Quiz - História do Brasil', '2025', '9EF', 'HIS', 3, 'History questions content...', 2);
+('Quiz - História do Brasil', '2025', '9EF', 'HIS', 3, 'History questions content...', 2),
+('Teste de Cálculo 1', '2025', '8EF', 'MAT', 1, 'Math questions content...', 2),
+('Teste de Cálculo 2', '2025', '8EF', 'MAT', 1, 'Math questions content...', 2);
 
 INSERT INTO questionnaire_class (questionnaire_id, class_id) VALUES
-(1, 'A'),
-(1, 'B'),
-(1, 'C'),
-(2, 'A'),
-(2, 'B');
+(1, 'A'), (1, 'B'), (1, 'C'),
+(2, 'A'), (2, 'B'),
+(3, 'A'), (3, 'B'), (3, 'C'),
+(4, 'A'), (4, 'B');
 
 INSERT INTO question (questionnaire_id, question, answer) VALUES
 (1, '2+2=4?', true),
@@ -236,12 +237,21 @@ INSERT INTO question (questionnaire_id, question, answer) VALUES
 (1, '2+2=5?', false),
 (1, '3+3=4?', false),
 (2, 'A independência do Brasil foi proclamada por Dom Pedro I em 7 de setembro de 1822.', true),
-(2, 'A abolição da escravatura no Brasil ocorreu em 1888, com a assinatura da Lei Áurea pela Princesa Isabel.', true);
+(2, 'A abolição da escravatura no Brasil ocorreu em 1888, com a assinatura da Lei Áurea pela Princesa Isabel.', true),
+(3, '4+4=8?', true),
+(3, '6+6=12?', true),
+(4, '5+5=5?', false),
+(4, '4+4=4?', false);
 
 INSERT INTO answers (questionnaire_id, question_id, user_id, answer) VALUES
 (1, 1, 8, true), (1, 2, 8, true), (1, 3, 8, true), (1, 4, 8, true), 
-(1, 1, 11, true), (1, 2, 11, true), (1, 3, 11, false), (1, 4, 11, false);
+(1, 1, 11, true), (1, 2, 11, true), (1, 3, 11, false), (1, 4, 11, false),
+(3, 7, 11, true), (3, 8, 11, true),
+(4, 9, 11, true), (4, 10, 11, false);
 
 INSERT INTO student_questionnaire (user_id, questionnaire_id, subject_id, score, date) VALUES
 (8, 1, 'MAT', '5', '2025-01-01 10:00:00'),
-(11, 1, 'MAT', '10', '2025-01-02 11:00:00');
+(11, 1, 'MAT', '10', '2025-01-02 11:00:00'),
+(11, 3, 'MAT', '10', '2025-02-01 10:00:00'),
+(11, 4, 'MAT', '5', '2025-02-02 11:00:00');
+

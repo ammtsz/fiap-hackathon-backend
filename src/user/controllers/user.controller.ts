@@ -4,6 +4,7 @@ import {
   Query,
   BadRequestException,
   NotFoundException,
+  Param,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -14,11 +15,11 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  async findOne(@Query('email') email: string) {
+  async getUser(@Query('email') email: string) {
     if (!email) {
       throw new BadRequestException('Digite un e-mail válido.');
     }
-    const user = await this.userService.findOne(email);
+    const user = await this.userService.getUser(email);
     if (user) {
       return user;
     } else {
@@ -26,12 +27,12 @@ export class UserController {
     }
   }
 
-  @Get('teacher')
-  async findTeacher(@Query('id') id: number) {
+  @Get('teacher/:id')
+  async getTeacher(@Param('id') id: number) {
     if (!id) {
       throw new BadRequestException('Insira um professor válido');
     }
-    const user = await this.userService.findTeacher(id);
+    const user = await this.userService.getTeacher(id);
     if (user) {
       return user;
     } else {
@@ -39,12 +40,12 @@ export class UserController {
     }
   }
 
-  @Get('student')
-  async findStudent(@Query('id') id: number) {
+  @Get('student/:id')
+  async getStudent(@Param('id') id: number) {
     if (!id) {
       throw new BadRequestException('Insira um aluno válido');
     }
-    const user = await this.userService.findStudent(id);
+    const user = await this.userService.getStudent(id);
     if (user) {
       return user;
     } else {

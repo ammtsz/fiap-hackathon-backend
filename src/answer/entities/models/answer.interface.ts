@@ -1,7 +1,13 @@
-export interface IAnswers {
+import {
+  IQuestion,
+  IQuestionnaire,
+} from 'src/questionnaire/entities/models/questionnaire.interface';
+import { IUser } from 'src/user/entities/models/user.interface';
+
+export interface IAnswer {
   id: number;
-  questionnaire_id: number;
-  question_id: number;
-  user_id: number;
+  questionnaire: IQuestionnaire;
+  question: IQuestion;
+  user: IUser;
   answer?: boolean;
 }

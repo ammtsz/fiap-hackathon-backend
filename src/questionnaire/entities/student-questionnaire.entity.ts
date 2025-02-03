@@ -1,23 +1,39 @@
-import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, ManyToOne, Column, PrimaryColumn, JoinColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 import { Questionnaire } from './questionnaire.entity';
+import { Subject } from '../../category/entities/subject.entity';
 
-@Entity()
+@Entity('student_questionnaire')
 export class StudentQuestionnaire {
-  @PrimaryColumn()
+  @PrimaryColumn({ name: 'user_id' })
   userId: number;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ name: 'questionnaire_id' })
   questionnaireId: number;
+
+  @ManyToOne(() => User, (user) => user.studentQuestionnaires, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @ManyToOne(
     () => Questionnaire,
-    (questionnaire) => questionnaire.studentQuestionnaire,
+    (questionnaire) => questionnaire.studentQuestionnaires,
+    { onDelete: 'CASCADE' },
   )
+  @JoinColumn({ name: 'questionnaire_id' })
   questionnaire: Questionnaire;
 
-  @Column()
+  @ManyToOne(() => Subject, (subject) => subject.studentQuestionnaires, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'subject_id' })
+  subject: Subject;
+
+  @Column({ type: 'varchar', length: 10 })
   score: string;
 
-  @Column()
+  @Column({ type: 'timestamp' })
   date: Date;
 }

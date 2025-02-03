@@ -1,26 +1,30 @@
+import { User } from '../../../user/entities/user.entity';
+import { ICategory } from '../../../category/entities/models/category.interface';
+
 export interface IQuestion {
   id: number;
-  questionnaire_id: string;
   question: string;
   answer: boolean;
+  questionnaireId: IQuestionnaire;
 }
 
 export interface IQuestionnaire {
   id: number;
   title: string;
-  year_id: string;
-  grade_id: string;
-  subject_id: string;
-  author_id: number;
   content: string;
-  questions_amount?: number;
-  class_id: string[];
+  questionsAmount?: number;
+  year: ICategory;
+  grade: ICategory;
+  subject: ICategory;
+  author: User;
+  classes: ICategory[];
   questions: IQuestion[];
 }
 
-export interface IStudentQuestionnaire extends IQuestionnaire {
-  user_id: number;
-  questionnaire_id: number;
+export interface IStudentQuestionnaire {
+  userId: number;
+  questionnaireId: number;
   score: string;
   date: Date;
+  questionnaire: IQuestionnaire;
 }

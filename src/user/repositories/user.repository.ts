@@ -4,4 +4,5 @@ export abstract class UserRepository {
   abstract getTeacher(userId: number): Promise<ITeacher | null>;
   abstract getStudent(userId: number): Promise<IStudent | null>;
   abstract getUser(email: string): Promise<IUser | null>;
+  abstract getStudentQuestionnaires(userId: number): Promise<IUser | null>;
 }
