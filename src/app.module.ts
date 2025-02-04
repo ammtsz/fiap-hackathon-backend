@@ -7,11 +7,18 @@ import { AnswerModule } from './answer/answer.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { CategoryModule } from './category/category.module';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/controllers/auth.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    JwtModule.register({
+      secret: 'secretKey',
+      signOptions: { expiresIn: '60s' },
     }),
     DatabaseModule,
     UserModule,
@@ -19,7 +26,7 @@ import { CategoryModule } from './category/category.module';
     QuestionnaireModule,
     AnswerModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}
