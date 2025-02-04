@@ -8,6 +8,9 @@ import {
 import { TeacherSubject } from './teacher-subject.entity';
 import { TeacherGrade } from './teacher-grade.entity';
 import { Student } from './student.entity';
+import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
+import { StudentQuestionnaire } from 'src/questionnaire/entities/student-questionnaire.entity';
+import { Answer } from 'src/answer/entities/answer.entity';
 
 @Entity('user')
 export class User {
@@ -34,4 +37,16 @@ export class User {
 
   @OneToOne(() => Student, (student) => student.user)
   student: Student;
+
+  @OneToMany(() => Questionnaire, (questionnaire) => questionnaire.author)
+  questionnaires: Questionnaire[];
+
+  @OneToMany(
+    () => StudentQuestionnaire,
+    (studentQuestionnaire) => studentQuestionnaire.user,
+  )
+  studentQuestionnaires: StudentQuestionnaire[];
+
+  @OneToMany(() => Answer, (answer) => answer.user)
+  answers: Answer[];
 }

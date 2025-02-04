@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
 import { Questionnaire } from '../../questionnaire/entities/questionnaire.entity';
 import { Student } from '../../user/entities/student.entity';
 
-@Entity()
+@Entity('year')
 export class Year {
   @PrimaryColumn()
   id: string;

@@ -1,19 +1,11 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import { YearService } from '../services/year.service';
-import { GradeService } from '../services/grade.service';
-import { ClassService } from '../services/class.service';
-import { SubjectService } from '../services/subject.service';
 import { ApiTags } from '@nestjs/swagger';
+import { CategoryService } from '../services/category.service';
 
 @ApiTags('category')
 @Controller('category')
 export class CategoryController {
-  constructor(
-    private readonly yearService: YearService,
-    private readonly classService: ClassService,
-    private readonly subjectService: SubjectService,
-    private readonly gradeService: GradeService,
-  ) {}
+  constructor(private readonly categoryService: CategoryService) {}
 
   @Get(':category')
   async getCategory(@Param('category') category: string) {
@@ -23,13 +15,13 @@ export class CategoryController {
 
     switch (category) {
       case 'years':
-        return this.yearService.findYear();
+        return this.categoryService.findYear();
       case 'classes':
-        return this.classService.findClass();
+        return this.categoryService.findClass();
       case 'subjects':
-        return this.subjectService.findSubject();
+        return this.categoryService.findSubject();
       case 'grades':
-        return this.gradeService.findGrade();
+        return this.categoryService.findGrade();
       default:
         throw new NotFoundException();
     }

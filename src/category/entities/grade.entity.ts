@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
 import { TeacherGrade } from '../../user/entities/teacher-grade.entity';
+import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
 @Entity('grade')
 export class Grade {
   @PrimaryColumn()
@@ -10,4 +11,7 @@ export class Grade {
 
   @OneToMany(() => TeacherGrade, (teacherGrade) => teacherGrade.grade)
   teacherGrades: TeacherGrade[];
+
+  @OneToMany(() => Questionnaire, (questionnaire) => questionnaire.grade)
+  questionnaires: Questionnaire[];
 }

@@ -1,7 +1,8 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany, ManyToMany } from 'typeorm';
 import { Student } from '../../user/entities/student.entity';
+import { Questionnaire } from 'src/questionnaire/entities/questionnaire.entity';
 
-@Entity()
+@Entity('class')
 export class Class {
   @PrimaryColumn()
   id: string;
@@ -11,4 +12,7 @@ export class Class {
 
   @OneToMany(() => Student, (student) => student.classId)
   students: Student[];
+
+  @ManyToMany(() => Questionnaire, (questionnaire) => questionnaire.classes)
+  questionnaires: Questionnaire[];
 }

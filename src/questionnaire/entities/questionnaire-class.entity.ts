@@ -1,5 +1,4 @@
-import { Entity, PrimaryColumn, ManyToOne } from 'typeorm';
-import { Questionnaire } from './questionnaire.entity';
+import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class QuestionnaireClass {
@@ -8,10 +7,4 @@ export class QuestionnaireClass {
 
   @PrimaryColumn()
   classId: string;
-
-  @ManyToOne(
-    () => Questionnaire,
-    (questionnaire) => questionnaire.questionnaireClasses,
-  )
-  questionnaire: Questionnaire;
 }

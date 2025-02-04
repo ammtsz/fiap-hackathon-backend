@@ -80,4 +80,26 @@ export class UserPGRepository implements UserRepository {
       throw new InternalServerErrorException('Failed to fetch user');
     }
   }
+
+  async getStudentQuestionnaires(userId: number): Promise<IStudent | null> {
+    try {
+      return this.userModel
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.student', 'student')
+        .where('user.id = :userId', { userId })
+        .select([
+          'user.id',
+          'user.name',
+          'user.role',
+          'user.email',
+          'student.gradeId',
+          'student.classId',
+          'student.yearId',
+        ])
+        .getOne();
+    } catch (error) {
+      console.error('Error fetching student:', error);
+      throw new InternalServerErrorException('Failed to fetch student');
+    }
+  }
 }
