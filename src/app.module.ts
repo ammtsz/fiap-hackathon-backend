@@ -10,6 +10,7 @@ import { CategoryModule } from './category/category.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/controllers/auth.controller';
+import { IaModule } from './ia/ia.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthController } from './auth/controllers/auth.controller';
     CategoryModule,
     QuestionnaireModule,
     AnswerModule,
+    IaModule
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
