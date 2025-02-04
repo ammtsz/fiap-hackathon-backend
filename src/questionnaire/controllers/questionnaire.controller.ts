@@ -1,15 +1,19 @@
 import {
+  Body,
   Controller,
   Get,
   InternalServerErrorException,
   Param,
+  Post,
   Query,
 } from '@nestjs/common';
 import { QuestionnaireService } from '../services/questionnaire.service';
+import { ZodValidationPipe } from 'src/shared/pipe/zod-validation.pipe';
+import {
+  PostQuestionnaireDto,
+  postQuestionnaireDto,
+} from '../dto/post-questionnaire.dto';
 
-import { ApiTags } from '@nestjs/swagger';
-
-@ApiTags('questionnaire')
 @Controller('questionnaire')
 export class QuestionnaireController {
   constructor(private readonly questionnaireService: QuestionnaireService) {}
@@ -76,5 +80,15 @@ export class QuestionnaireController {
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
+  }
+
+  @Post()
+  async createQuestionnaire(
+    @Body(new ZodValidationPipe(postQuestionnaireDto))
+    questionnaire: PostQuestionnaireDto,
+  ) {
+    this.questionnaireService.createQuestionnaire(questionnaire);
+
+    return { message: 'Questionnaire saved successfully' };
   }
 }

@@ -6,9 +6,18 @@ import { QuestionnairePGRepository } from './repositories/pg/questionnaire.pg.re
 import { Questionnaire } from './entities/questionnaire.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StudentQuestionnaire } from 'src/questionnaire/entities/student-questionnaire.entity';
+import { QuestionnaireClass } from './entities/questionnaire-class.entity';
+import { Question } from './entities/question.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Questionnaire, StudentQuestionnaire])],
+  imports: [
+    TypeOrmModule.forFeature([
+      Questionnaire,
+      StudentQuestionnaire,
+      QuestionnaireClass,
+      Question,
+    ]),
+  ],
   providers: [
     {
       provide: QuestionnaireRepository,

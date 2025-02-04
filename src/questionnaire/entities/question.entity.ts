@@ -24,7 +24,7 @@ export class Question {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'questionnaire_id' })
-  questionnaireId: Questionnaire;
+  questionnaire: Questionnaire;
 
   @OneToMany(() => Answer, (answer) => answer.question)
   answers: Answer[];

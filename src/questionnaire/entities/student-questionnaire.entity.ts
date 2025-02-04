@@ -35,5 +35,5 @@ export class StudentQuestionnaire {
   score: string;
 
   @Column({ type: 'timestamp' })
-  date: Date;
+  date: string;
 }

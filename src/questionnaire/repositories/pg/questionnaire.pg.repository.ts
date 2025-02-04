@@ -3,11 +3,18 @@ import { Questionnaire } from '../../entities/questionnaire.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
+  IQuestion,
   IQuestionnaire,
+  IQuestionnaireClass,
   IStudentQuestionnaire,
 } from '../../entities/models/questionnaire.interface';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { StudentQuestionnaire } from 'src/questionnaire/entities/student-questionnaire.entity';
+import { QuestionnaireClass } from 'src/questionnaire/entities/questionnaire-class.entity';
+import { Question } from 'src/questionnaire/entities/question.entity';
+import { SaveQuestionnaireDto } from 'src/questionnaire/dto/save-questionnaire.dto';
+import { SaveQuestionnaireClassDto } from 'src/questionnaire/dto/save-questionnaire-class.dto';
+import { SaveQuestionDto } from 'src/questionnaire/dto/save-question.dto';
 
 @Injectable()
 export class QuestionnairePGRepository implements QuestionnaireRepository {
@@ -16,6 +23,10 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
     private readonly questionnaireModel: Repository<Questionnaire>,
     @InjectRepository(StudentQuestionnaire)
     private readonly studentQuestionnaireModel: Repository<StudentQuestionnaire>,
+    @InjectRepository(QuestionnaireClass)
+    private readonly questionnaireClassModel: Repository<QuestionnaireClass>,
+    @InjectRepository(Question)
+    private readonly questionModel: Repository<Question>,
   ) {}
 
   async getQuestionnaires(): Promise<IQuestionnaire[]> {
@@ -159,5 +170,25 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
       console.error('Error fetching pending questionnaires:', error);
       throw new InternalServerErrorException('Failed to fetch teacher');
     }
+  }
+
+  async createQuestionnaire(
+    questionnaire: SaveQuestionnaireDto,
+  ): Promise<IQuestionnaire> {
+    const newQuestionnaire = this.questionnaireModel.create(questionnaire);
+    return this.questionnaireModel.save(newQuestionnaire);
+  }
+
+  async createQuestionnaireClass(
+    questionnaireClass: SaveQuestionnaireClassDto[],
+  ): Promise<IQuestionnaireClass[]> {
+    const questionnaireClassEntity =
+      this.questionnaireClassModel.create(questionnaireClass);
+    return this.questionnaireClassModel.save(questionnaireClassEntity);
+  }
+
+  async createQuestions(questions: SaveQuestionDto[]): Promise<IQuestion[]> {
+    const questionsEntity = this.questionModel.create(questions);
+    return this.questionModel.save(questionsEntity);
   }
 }
