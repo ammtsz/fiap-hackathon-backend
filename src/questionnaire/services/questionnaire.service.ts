@@ -4,6 +4,8 @@ import { PostQuestionnaireDto } from '../dto/post-questionnaire.dto';
 import { SaveQuestionnaireDto } from '../dto/save-questionnaire.dto';
 import { SaveQuestionnaireClassDto } from '../dto/save-questionnaire-class.dto';
 import { SaveQuestionDto } from '../dto/save-question.dto';
+import { IQuestionnaire } from '../entities/models/questionnaire.interface';
+import { Question } from '../entities/question.entity';
 
 @Injectable()
 export class QuestionnaireService {
@@ -13,6 +15,10 @@ export class QuestionnaireService {
 
   async getQuestionnaires() {
     return this.questionnaireRepository.getQuestionnaires();
+  }
+
+  async getQuestionnaireById(id: number) {
+    return this.questionnaireRepository.getQuestionnaireById(id);
   }
 
   async getQuestionnairesByStudent(userId: number) {
@@ -75,5 +81,50 @@ export class QuestionnaireService {
       }));
       await this.questionnaireRepository.createQuestions(questions);
     }
+  }
+
+  async createQuestionnaireClass(
+    questionnaireClasses: SaveQuestionnaireClassDto[],
+  ) {
+    return this.questionnaireRepository.createQuestionnaireClass(
+      questionnaireClasses,
+    );
+  }
+
+  async deleteQuestionnaireClass(questionnaireId: number) {
+    return this.questionnaireRepository.deleteQuestionnaireClass(
+      questionnaireId,
+    );
+  }
+
+  async deleteQuestionnaire(questionnaireId: number) {
+    return this.questionnaireRepository.deleteQuestionnaire(questionnaireId);
+  }
+
+  async deleteQuestion(questionId: number) {
+    return this.questionnaireRepository.deleteQuestion(questionId);
+  }
+
+  async countQuestionnaireQuestions(questionnaireId: number) {
+    return this.questionnaireRepository.countQuestionnaireQuestions(
+      questionnaireId,
+    );
+  }
+
+  async updateQuestionnaire(
+    questionnaireId: number,
+    updates: Partial<IQuestionnaire>,
+  ) {
+    return this.questionnaireRepository.updateQuestionnaire(
+      questionnaireId,
+      updates,
+    );
+  }
+
+  async updateQuestion(questionId: number, updatedQuestion: Partial<Question>) {
+    return this.questionnaireRepository.updateQuestion(
+      questionId,
+      updatedQuestion,
+    );
   }
 }
