@@ -16,6 +16,7 @@ import { Class } from '../../category/entities/class.entity';
 import { Question } from './question.entity';
 import { StudentQuestionnaire } from './student-questionnaire.entity';
 import { Answer } from 'src/answer/entities/answer.entity';
+import { QuestionnaireClass } from './questionnaire-class.entity';
 
 @Entity('questionnaire')
 export class Questionnaire {
@@ -59,7 +60,7 @@ export class Questionnaire {
   })
   classes: Class[];
 
-  @OneToMany(() => Question, (question) => question.questionnaireId, {
+  @OneToMany(() => Question, (question) => question.questionnaire, {
     cascade: true,
   })
   questions: Question[];
@@ -72,4 +73,7 @@ export class Questionnaire {
 
   @OneToMany(() => Answer, (answer) => answer.questionnaire)
   answers: Answer[];
+
+  @OneToMany(() => QuestionnaireClass, (qc) => qc.questionnaire)
+  questionnaireClasses: QuestionnaireClass[];
 }
