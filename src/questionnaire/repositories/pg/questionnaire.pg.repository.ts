@@ -123,6 +123,7 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
         'sq.questionnaireId',
         'sq.score',
         'sq.date',
+        'questionnaire.questionsAmount',
         'questionnaire.title',
         'year.id',
         'year.label',
@@ -142,6 +143,7 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
       .innerJoinAndSelect('questionnaire.year', 'year')
       .innerJoinAndSelect('questionnaire.grade', 'grade')
       .innerJoinAndSelect('questionnaire.classes', 'class')
+      .innerJoinAndSelect('questionnaire.subject', 'subject')
       .where('questionnaire.author.id = :teacherId', { teacherId })
       .select([
         'questionnaire.id',
@@ -154,6 +156,8 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
         'grade.label',
         'class.id',
         'class.label',
+        'subject.id',
+        'subject.label',
       ])
       .getMany();
   }
