@@ -123,6 +123,7 @@ export class QuestionnairePGRepository implements QuestionnaireRepository {
         'sq.questionnaireId',
         'sq.score',
         'sq.date',
+        'questionnaire.questionsAmount',
         'questionnaire.title',
         'year.id',
         'year.label',
