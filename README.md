@@ -89,7 +89,7 @@ Existem dois tipos de usuários: alunos e professores. De acordo com o tipo de u
 
 ```
 aluno
-email: bob.brown@example.com
+email: ana.costa@example.com
 senha: password123
 
 professor:
