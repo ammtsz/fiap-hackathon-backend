@@ -1,73 +1,94 @@
+<h1 align="center">FIAP - Hackathon</h1>
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a><img src="https://img.shields.io/badge/typescript-v5.1.3-blue?logo=typescript"/></a>
+  <a><img src="https://img.shields.io/badge/prettier-v3.0.0-red?logo=prettier"/></a>
+  <a><img src="https://img.shields.io/badge/nestjs-v10.0.0-green?logo=nestjs"/></a>
+  <a><img src="https://img.shields.io/badge/axios-v1.7.9-blue"/></a>
+  <a><img src="https://img.shields.io/badge/typeorm-v0.3.20-red?logo=typeorm"/></a>
+  <a><img src="https://img.shields.io/badge/pg-v8.12.0-red?logo=postgresql"/></a>
+  <a><img src="https://img.shields.io/badge/tailwindcss-v3.4.1-green?logo=tailwindcss"/></a>
+  <a><img src="https://img.shields.io/badge/recharts-v2.15.0-blue?logo=recharts"/></a>
+  <a><img src="https://img.shields.io/badge/next-v15.1.4-red?logo=next"/></a>
+  <a><img src="https://img.shields.io/badge/radixui-v1.1-green?logo=radixui"/></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Desafio do Hackathon
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O tema do hackathon é “Auxílio aos professores e professoras no ensino público”. O objetivo é desenvolver sistemas, ferramentas ou plataformas tecnológicas que facilitem o trabalho dos professores e professoras da rede pública de ensino, proporcionando mais eficiência, criatividade e interação com seus alunos.
 
-## Description
+## Solução
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A solução proposta consiste em um sistema Web integrado com a gestão escolar, onde os professores podem informatizar as etapas de avaliação de frequência e aprendizado. Em relação à construção dos questionários, o professor insere em um campo texto o conteúdo da aula ministrada. Uma integração com um modelo de inteligência artificial do tipo LLM (Large Language Model) irá transformar o conteúdo em uma série de perguntas cujas respostas sejam Verdadeiro/Falso. Após o professor revisar o conteúdo, ele poderá distribuir o questionário aos alunos para que eles respondam. Os alunos, ao terminarem de responder, poderão verificar sua performance individual em termos de % de acertos. O professor pode acessar um relatório que contém o % médio de acerto de seus alunos.
 
-## Installation
+## Para rodar a solução
 
-```bash
-$ npm install
+A solução é composta por 3 componentes principais. Um frontend, um backend e o ollama, que roda o modelo de LLM Llama3.
+
+### Backend
+
+Para rodar o backend, deve-se clonar o repositório de acordo com o código abaixo:
+
+```sh
+git clone https://github.com/ammtsz/fiap-hackathon-backend.git
+cd fiap-hackathon-backend
+npm install
 ```
 
-## Running the app
+Antes de rodar o container com o docker compose, configure um arquivo .env com as variáveis de ambiente conforme sugerido abaixo:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=docker
+POSTGRES_PASSWORD=docker
+POSTGRES_DB=hackathon
+JWT_SECRET=mysecret
 ```
 
-## Test
+Por fim, subir a aplicação utilizando docker:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+docker compose up
 ```
 
-## Support
+Após esse procedimento, você terá rodando em localhost:
+* Instância do PostgreSQL na porta 5432.
+* Instância do backend (API) na porta 3001.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Frontend
 
-## Stay in touch
+Em seguida, para rodar o frontend, faça o clone do repositório e rode a aplicação localmente:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+git clone https://github.com/caueeugenio/fiap-hackaton-frontend.git
+cd fiap-hackaton-frontend
+npm install
+npm run dev
+```
 
-## License
+Desta forma, a solução pode ser rodada no naveador em `http://localhost:3000`.
 
-Nest is [MIT licensed](LICENSE).
+### Ollama
+
+Para rodar o modelo de LLM localmente, é necessário baixar a aplicação ollama para o seu sistema operacional no [site oficial](https://ollama.com/download). Com a aplicação funcionando, instalar o modelo LLama3 localmente:
+
+```sh
+ollama run llama3
+```
+
+# Como utilizar a aplicação e Documentação
+
+Existem dois tipos de usuários: alunos e professores. De acordo com o tipo de usuário, diferentes recursos estarão disponíveis. Utilize as credenciais abaixo para testar a aplicação:
+
+```
+aluno
+email: bob.brown@example.com
+senha: password123
+
+professor:
+email: john.doe@example.com
+senha: password123
+```
+
+Mais detalhes sobre como a aplicação funciona, telas e documentação, confira a [documentação completa](https://midi-sole-bef.notion.site/Hackathon-FIAP-17d5c10a92d5806ba9f1f722f816c1ed).
